@@ -1,15 +1,24 @@
-version: '3.8'
 services:
   apache_web_server:
-    image: homelab-php-node-apache:latest  # Use the local image we just built
+    image: homelab-php-node-apache:latest
     container_name: apache_web_server
     restart: always
     ports:
       - "80:80"
     volumes:
       - /home/bram/docker/apache/config/sites.conf:/etc/apache2/sites-available/000-default.conf
-      - /home/bram/docker/apache/www/weitzman.info:/var/www/weitzman.info
-      - /home/bram/docker/apache/www/lurekitchenandbath.ca:/var/www/lurekitchenandbath.ca
+      - /home/bram/docker/apache/www:/var/www
+    networks:
+      - proxy-net
+
+  lure-nextjs:
+    image: node:20-slim
+    container_name: lure_next_app
+    working_dir: /app
+    volumes:
+      - /home/bram/docker/apache/www/lurekitchenandbath.ca/v2:/app
+    # Installs dependencies and starts dev server automatically
+    command: sh -c "npm install && npm run dev"
     networks:
       - proxy-net
 
