@@ -2,8 +2,7 @@ version: '3.8'
 services:
   apache_web_server:
     build: 
-      context: .  # Change this from ./build to . because the file is in the root
-      dockerfile: Dockerfile
+      context: .
     container_name: apache_web_server
     restart: always
     ports:
@@ -12,3 +11,10 @@ services:
       - /home/bram/docker/apache/config/sites.conf:/etc/apache2/sites-available/000-default.conf
       - /home/bram/docker/apache/www/weitzman.info:/var/www/weitzman.info
       - /home/bram/docker/apache/www/lurekitchenandbath.ca:/var/www/lurekitchenandbath.ca
+    # Since they are separate stacks, they must share a network to talk
+    networks:
+      - proxy-net
+
+networks:
+  proxy-net:
+    external: true # This connects to a network you'll create once
