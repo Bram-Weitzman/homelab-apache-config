@@ -17,8 +17,8 @@ services:
     working_dir: /app
     volumes:
       - /home/bram/docker/apache/www/lurekitchenandbath.ca/v2:/app
-    # Using 'next dev' without any flags explicitly avoids the Turbopack engine
-    command: sh -c "npm install && ./node_modules/.bin/next dev"
+    # Forcing standard 'next dev' without Turbopack flags
+    command: sh -c "npm install && npx next dev"
     networks:
       - proxy-net
 
