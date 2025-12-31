@@ -2,7 +2,8 @@ version: '3.8'
 services:
   apache_web_server:
     build: 
-      context: ./build  # Points to the build folder in your repo
+      context: .  # Change this from ./build to . because the file is in the root
+      dockerfile: Dockerfile
     container_name: apache_web_server
     restart: always
     ports:
