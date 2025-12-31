@@ -11,16 +11,16 @@ services:
     networks:
       - proxy-net
 
-lure-nextjs:
-    image: node:20-slim
-    container_name: lure_next_app
-    working_dir: /app
-    volumes:
-      - /home/bram/docker/apache/www/lurekitchenandbath.ca/v2:/app
-    # Remove Turbopack by forcing a standard dev start
-    command: sh -c "npm install && npx next dev" 
-    networks:
-      - proxy-net
+  lure-nextjs:
+      image: node:20-slim
+      container_name: lure_next_app
+      working_dir: /app
+      volumes:
+        - /home/bram/docker/apache/www/lurekitchenandbath.ca/v2:/app
+      # Remove Turbopack by forcing a standard dev start
+      command: sh -c "npm install && npx next dev" 
+      networks:
+        - proxy-net
 
 networks:
   proxy-net:
